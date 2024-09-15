@@ -69,7 +69,7 @@ struct MovieDetails: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        viewModel.toogleAddedTpWatchList()
+                        viewModel.toogleAddedToWatchList()
                     } label: {
                         Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
                     }
