@@ -8,16 +8,15 @@
 import Foundation
 import SwiftData
 
-protocol ModelContainerBuilderType {
-    func build() -> ModelContainer
-    
-}
+enum ModelContainerBuilder {
+    static func build(schema: Schema = Schema([WatchListItem.self]), isStoredInMemoryOnly: Bool) -> ModelContainer {
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
-//struct ModelContainerBuilder: ModelContainerBuilderType {
-//    private var schema: ModelConfiguration
-//    
-//        func build() -> ModelContainer {
-//            ModelContainer(for: <#T##any PersistentModel.Type...##any PersistentModel.Type#>, configurations: <#T##ModelConfiguration...##ModelConfiguration#>)
-//        }
-//}
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }
+}
 

@@ -7,13 +7,14 @@
 
 import SwiftUI
 import Kingfisher
+import SwiftData
 
 struct MovieDetails: View {
     @State private var viewModel: MovieDetailsViewModel
     @State private var playerIsReady = false
     
-    init(movieID: Int) {
-        _viewModel = State(wrappedValue: MovieDetailsViewModel(movieID: movieID))
+    init(movieID: Int, modelContext: ModelContext) {
+        _viewModel = State(wrappedValue: MovieDetailsViewModel(movieID: movieID, modelContext: modelContext))
     }
     
     var body: some View {
@@ -66,7 +67,13 @@ struct MovieDetails: View {
             .navigationTitle("Detail")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        viewModel.toogleAddedTpWatchList()
+                    } label: {
+                        Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
+                    }
+                }
             }
             .task {
                 await viewModel.loadDetails()
@@ -88,5 +95,5 @@ struct MovieDetails: View {
 }
 
 #Preview {
-    MovieDetails(movieID: 100)
+    MovieDetails(movieID: 100, modelContext: try! ModelContainer.init(for: WatchListItem.self).mainContext)
 }

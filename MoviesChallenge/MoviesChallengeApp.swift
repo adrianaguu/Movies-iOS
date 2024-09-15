@@ -10,17 +10,7 @@ import SwiftData
 
 @main
 struct MoviesChallengeApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    private var sharedModelContainer: ModelContainer
 
     var body: some Scene {
         WindowGroup {
@@ -30,6 +20,8 @@ struct MoviesChallengeApp: App {
     }
     
     init() {
+        sharedModelContainer = ModelContainerBuilder.build(isStoredInMemoryOnly: false)
+
         Task {
             do {
                 try await MovieAPIConfigurationSaver().save()

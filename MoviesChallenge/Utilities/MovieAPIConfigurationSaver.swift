@@ -19,6 +19,8 @@ struct MovieAPIConfigurationSaver {
     func save() async throws {
         let response = try await configurationService.fetch()
         storage.set(response.images.secureBaseUrl, forKey: StorageKey.imagesBaseURL.rawValue)
+        
+        // TODO: Improve calculation of size
         let sizeIndex = response.images.posterSizes.count / 2
         storage.set(response.images.posterSizes[sizeIndex], forKey: StorageKey.posterImageSize.rawValue)
     }

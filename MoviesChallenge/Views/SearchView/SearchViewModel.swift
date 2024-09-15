@@ -32,24 +32,8 @@ import Foundation
             guard let self else { return }
             
             do {
-                
                 let partialResults = try await movieService.fetchSearchResults(name: searchText)
-                
-                results = try await withThrowingTaskGroup(of: Movie.self, returning: [Movie].self) { group in
-                    for result in partialResults {
-                        group.addTask { try await self.movieService.fetch(by: result.id) }
-                    }
-                    
-                    var movies: [Movie] = []
-                    
-                    for try await result in group {
-                        movies.append(result)
-                    }
-                    
-                    return movies
-                }
-                
-                showEmpyState = results.isEmpty
+                results = try await movieService.fetchMovies(with: partialResults.map { $0.id })
             } catch {
                 debugPrint(error)
             }

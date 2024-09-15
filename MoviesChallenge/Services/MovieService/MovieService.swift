@@ -10,6 +10,7 @@ import Moya
 
 protocol MovieServiceType {
     func fetch(by id: Int) async throws -> Movie
+    func fetchMovies(with ids: [Int]) async throws -> [Movie]
     func fetchSearchResults(name: String) async throws -> [Movie]
     func fetchPopularList() async throws -> [Movie]
     func fetchTopRatedList() async throws -> [Movie]
@@ -26,6 +27,22 @@ struct MovieService: MovieServiceType {
     
     func fetch(by id: Int) async throws -> Movie {
         try await networkManager.request(target: .movieDetail(id: id))
+    }
+    
+    func fetchMovies(with ids: [Int]) async throws -> [Movie] {
+        try await withThrowingTaskGroup(of: Movie.self, returning: [Movie].self) { group in
+            for id in ids {
+                group.addTask { try await fetch(by: id) }
+            }
+            
+            var movies: [Movie] = []
+            
+            for try await result in group {
+                movies.append(result)
+            }
+            
+            return movies
+        }
     }
     
     func fetchSearchResults(name: String) async throws -> [Movie] {

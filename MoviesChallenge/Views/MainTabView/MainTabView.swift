@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var viewModel = MainTabViewModel()
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         TabView(selection: $viewModel.selection) {
@@ -16,7 +17,7 @@ struct MainTabView: View {
                 NavigationStack {
                     view(for: tab)
                         .navigationDestination(for: Movie.self) { movie in
-                            MovieDetails(movieID: movie.id)
+                            MovieDetails(movieID: movie.id, modelContext: modelContext)
                         }
                 }
                 .tabItem {
@@ -34,7 +35,7 @@ struct MainTabView: View {
         case .search:
             SearchView()
         case .watchList:
-            EmptyView()
+            WatchList(modelContext: modelContext)
         }
     }
 }

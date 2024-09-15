@@ -9,15 +9,8 @@ import Foundation
 import Combine
 import SwiftData
 
-protocol ModelListManagerType {
-    associatedtype ModelType
-    
-    var list: CurrentValueSubject<[ModelType], Never> { get }
 
-    func insert(_ entity: ModelType)
-}
-
-final class ModelListManager<ModelType: PersistentModel>: ModelListManagerType {
+final class ModelListManager<ModelType: PersistentModel> {
     // MARK: Properties Declaration
     private let modelContext: ModelContext
     private let fetchDescriptor: FetchDescriptor<ModelType>
@@ -25,7 +18,7 @@ final class ModelListManager<ModelType: PersistentModel>: ModelListManagerType {
     let list = CurrentValueSubject<[ModelType], Never>([])
     
     // MARK: Initializers
-    private init(modelContext: ModelContext, fetchDescriptor: FetchDescriptor<ModelType>) {
+    init(modelContext: ModelContext, fetchDescriptor: FetchDescriptor<ModelType>) {
         self.modelContext = modelContext
         self.fetchDescriptor = fetchDescriptor
 
@@ -43,9 +36,24 @@ final class ModelListManager<ModelType: PersistentModel>: ModelListManagerType {
         updateListValue()
     }
     
+    func checkUpdates() {
+        do {
+            let currentValue = try modelContext.fetch(fetchDescriptor)
+            
+            guard currentValue != list.value else { return }
+            list.send(currentValue)
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
     // MARK: Private Methods
     private func updateListValue() {
         do {
+            if modelContext.hasChanges {
+                try modelContext.save()
+            }
+
             list.send(try modelContext.fetch(fetchDescriptor))
         } catch {
             debugPrint(error)

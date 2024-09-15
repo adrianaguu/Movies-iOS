@@ -55,6 +55,9 @@
 		A4964DC92C9721D00055963F /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DC82C9721D00055963F /* MovieDetailsViewModel.swift */; };
 		A4964DCF2C9731460055963F /* LoadingPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DCE2C9731460055963F /* LoadingPlayButton.swift */; };
 		A4964DD12C9739CF0055963F /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DD02C9739CF0055963F /* InfoLabel.swift */; };
+		A4964DD52C9740DA0055963F /* WatchListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DD42C9740DA0055963F /* WatchListItem.swift */; };
+		A4964DDD2C974E820055963F /* WatchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DDC2C974E820055963F /* WatchList.swift */; };
+		A4964DDF2C974E950055963F /* WatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4964DDE2C974E950055963F /* WatchListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +126,9 @@
 		A4964DC82C9721D00055963F /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
 		A4964DCE2C9731460055963F /* LoadingPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPlayButton.swift; sourceTree = "<group>"; };
 		A4964DD02C9739CF0055963F /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		A4964DD42C9740DA0055963F /* WatchListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListItem.swift; sourceTree = "<group>"; };
+		A4964DDC2C974E820055963F /* WatchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchList.swift; sourceTree = "<group>"; };
+		A4964DDE2C974E950055963F /* WatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +245,7 @@
 		A46E0EF52C95FB9E0078F023 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				A4964DD32C9740A80055963F /* Models */,
 				A46E0EF62C960B030078F023 /* ModelContainerBuilder.swift */,
 				A46E0EF82C9624F80078F023 /* ModelListManager.swift */,
 			);
@@ -279,6 +286,7 @@
 		A46E0F082C9651E70078F023 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A4964DD62C9741DB0055963F /* WatchList */,
 				A4964DB82C971BF50055963F /* MovieDetails */,
 				A4964DAF2C9701760055963F /* SearchView */,
 				A46E0F032C964FDE0078F023 /* HomeView */,
@@ -421,6 +429,23 @@
 				A4964DCE2C9731460055963F /* LoadingPlayButton.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A4964DD32C9740A80055963F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A4964DD42C9740DA0055963F /* WatchListItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A4964DD62C9741DB0055963F /* WatchList */ = {
+			isa = PBXGroup;
+			children = (
+				A4964DDC2C974E820055963F /* WatchList.swift */,
+				A4964DDE2C974E950055963F /* WatchListViewModel.swift */,
+			);
+			path = WatchList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -568,6 +593,7 @@
 				A4964DB32C9702330055963F /* MovieRow.swift in Sources */,
 				A4964DAE2C96F9220055963F /* VerticalGrid.swift in Sources */,
 				A4964DA12C96DA190055963F /* StorageKey.swift in Sources */,
+				A4964DDD2C974E820055963F /* WatchList.swift in Sources */,
 				A4964DB12C9701810055963F /* SearchView.swift in Sources */,
 				A4964DBA2C971C060055963F /* MovieDetails.swift in Sources */,
 				A4367C382C96BB7E0001E8BA /* HomeViewModel.swift in Sources */,
@@ -578,9 +604,11 @@
 				A4964DBC2C971DD00055963F /* Video.swift in Sources */,
 				A46E0F152C967FFB0078F023 /* NetworkManager.swift in Sources */,
 				A4964D9A2C96D08D0055963F /* MovieAPIConfigurationSaver.swift in Sources */,
+				A4964DD52C9740DA0055963F /* WatchListItem.swift in Sources */,
 				A4964DBF2C971E040055963F /* VideosService.swift in Sources */,
 				A4964DAA2C96F6430055963F /* Titleable.swift in Sources */,
 				A46E0F052C9650190078F023 /* MainTabView.swift in Sources */,
+				A4964DDF2C974E950055963F /* WatchListViewModel.swift in Sources */,
 				A4367C3A2C96BF8D0001E8BA /* MoviePaginationResponse.swift in Sources */,
 				A46E0EF72C960B030078F023 /* ModelContainerBuilder.swift in Sources */,
 				A46E0F0F2C965DD50078F023 /* HomeView.swift in Sources */,
