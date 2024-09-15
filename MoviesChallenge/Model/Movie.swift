@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Decodable, Identifiable {
+struct Movie: Decodable, Hashable, Identifiable {
     let id: Int
     let adult: Bool
     let backdropPath: String?
@@ -35,5 +35,10 @@ struct Movie: Decodable, Identifiable {
     var yearOfRealease: String? {
         guard let date = DateFormatter.yearMonthDay.date(from: releaseDate) else { return nil }
         return DateFormatter.year.string(from: date)
+    }
+    
+    var runtimeString: String? {
+        guard let runtime else { return nil }
+        return "\(runtime) minutes"
     }
 }

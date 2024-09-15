@@ -16,6 +16,7 @@ enum MovieTarget {
     case topRated
     case search(name: String)
     case movieDetail(id: Int)
+    case videos(movieID: Int)
 }
 
 extension MovieTarget: TargetType {
@@ -33,12 +34,13 @@ extension MovieTarget: TargetType {
         case .upcoming: Constants.MovieAPI.upcomingPath
         case .search: Constants.MovieAPI.searchMoviePath
         case .movieDetail(let id): Constants.MovieAPI.moviePath + String(id)
+        case .videos(let movieID): Constants.MovieAPI.moviePath + String(movieID) + "/\(Constants.MovieAPI.videosPath)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated, .search:
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated, .search, .videos:
             return .get
         }
     }
@@ -47,7 +49,7 @@ extension MovieTarget: TargetType {
         var parameters = ["api_key": Constants.MovieAPI.key]
 
         switch self {
-        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated, .videos:
             break
         case .search(let name):
             parameters["query"] = name
@@ -64,7 +66,7 @@ extension MovieTarget: TargetType {
 extension MovieTarget: CachePolicyGettable {
     var cachePolicy: URLRequest.CachePolicy {
         switch self {
-        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated, .search:
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated, .search, .videos:
             return .returnCacheDataElseLoad
         }
     }

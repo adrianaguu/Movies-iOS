@@ -14,9 +14,7 @@ struct SearchView: View {
     
     var body: some View {
         ZStack {
-            if viewModel.searchText.isEmpty {
-                emptySearchTextState
-            } else if !viewModel.results.isEmpty {
+            if !viewModel.results.isEmpty {
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         ForEach(viewModel.results) {
@@ -28,6 +26,8 @@ struct SearchView: View {
                 }
             } else if viewModel.showEmpyState {
                 emptyState
+            } else {
+                emptySearchTextState
             }
         }
         .searchable(text: $viewModel.searchText)

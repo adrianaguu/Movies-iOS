@@ -18,5 +18,6 @@ enum Constants {
         static let upcomingPath = "movie/upcoming"
         static let topRatedPath = "movie/top_rated"
         static let searchMoviePath = "search/movie"
+        static let videosPath = "videos"
     }
 }
