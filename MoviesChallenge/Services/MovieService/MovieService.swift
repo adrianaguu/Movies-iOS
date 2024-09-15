@@ -9,6 +9,8 @@ import Foundation
 import Moya
 
 protocol MovieServiceType {
+    func fetch(by id: Int) async throws -> Movie
+    func fetchSearchResults(name: String) async throws -> [Movie]
     func fetchPopularList() async throws -> [Movie]
     func fetchTopRatedList() async throws -> [Movie]
     func fetchUpcomingList() async throws -> [Movie]
@@ -20,6 +22,14 @@ struct MovieService: MovieServiceType {
     
     init(networkManager: NetworkManager<MovieTarget> = .init(provider: MoyaProvider<MovieTarget>(plugins: [CachePlugin()]), decoder: .snakeCaseDecoder)) {
         self.networkManager = networkManager
+    }
+    
+    func fetch(by id: Int) async throws -> Movie {
+        try await networkManager.request(target: .movieDetail(id: id))
+    }
+    
+    func fetchSearchResults(name: String) async throws -> [Movie] {
+        try await fetch(.search(name: name))
     }
     
     func fetchPopularList() async throws -> [Movie] {

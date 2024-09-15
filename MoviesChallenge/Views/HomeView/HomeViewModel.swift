@@ -15,7 +15,7 @@ import Foundation
     private let movieService: MovieServiceType
     
     var mainCategoryMovies: [Movie] {
-        movies(of: .popular)
+        movies(of: .mainCategory)
     }
     
     init(movieService: MovieServiceType = MovieService()) {

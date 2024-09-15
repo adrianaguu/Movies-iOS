@@ -12,7 +12,7 @@ struct Movie: Decodable, Identifiable {
     let adult: Bool
     let backdropPath: String?
     let budget: Int?
-    let genreIds: [Int]
+    let genreIds: [Int]?
     let genres: [Genre]?
     let homepage: String?
     let imdbId: String?
@@ -31,4 +31,9 @@ struct Movie: Decodable, Identifiable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+    
+    var yearOfRealease: String? {
+        guard let date = DateFormatter.yearMonthDay.date(from: releaseDate) else { return nil }
+        return DateFormatter.year.string(from: date)
+    }
 }
