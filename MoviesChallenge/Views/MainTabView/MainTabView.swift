@@ -15,6 +15,9 @@ struct MainTabView: View {
             ForEach(TabItem.allCases) { tab in
                 NavigationStack {
                     view(for: tab)
+                        .navigationDestination(for: Movie.self) { movie in
+                            MovieDetails(movieID: movie.id)
+                        }
                 }
                 .tabItem {
                     Label(tab.name, systemImage: tab.systemImage)

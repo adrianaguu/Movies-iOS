@@ -17,7 +17,7 @@ struct HomeView: View {
                 
                 SectionsPicker(selection: $viewModel.categorySelection, sections: viewModel.nonMainCategories) { category in
                     VerticalGrid(items: viewModel.movies(of: category), columnsCount: 3, horizontalSpacing: 16) { movie in
-                        ImageView(path: movie.posterPath, width: nil)
+                        card(for: movie, width: nil)
                     }
                 }
                 .padding()
@@ -36,19 +36,28 @@ struct HomeView: View {
             LazyHStack {
                 ForEach(Array(zip(viewModel.mainCategoryMovies.indices, viewModel.mainCategoryMovies)), id: \.0) { index, movie in
                     ZStack(alignment: .bottomLeading) {
-                        ImageView(path: movie.posterPath, width: 164)
+                        card(for: movie, width: 164)
                         
                         Circle()
-                            .fill(.background)
+                            .fill(Color.accentColor)
                             .frame(width: 36)
                             .overlay {
                                 Text("\(index + 1)")
+                                    .foregroundStyle(.white)
                             }
                             .padding()
                     }
                 }
             }
             .padding(.leading)
+        }
+    }
+    
+    private func card(for movie: Movie, width: CGFloat?) -> some View {
+        NavigationLink(value: movie) {
+            ImageView(path: movie.posterPath)
+                .aspectRatio(2 / 3, contentMode: .fill)
+                .frame(width: width)
         }
     }
 }
