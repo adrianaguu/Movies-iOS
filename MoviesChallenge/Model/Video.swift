@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Video: Codable {
+struct Video {
     let iso6391: String
     let iso3166_1: String
     let name: String
@@ -18,7 +18,9 @@ struct Video: Codable {
     let official: Bool
     let publishedAt: String
     let id: String
+}
 
+extension Video: Codable {
     enum CodingKeys: String, CodingKey {
         case iso6391 = "iso_639_1"
         case iso3166_1 = "iso_3166_1"

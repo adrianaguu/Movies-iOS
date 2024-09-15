@@ -15,12 +15,13 @@ import SwiftData
     private var videos: [Video] = []
     private(set) var movie: Movie?
     
-    private let wacthListManager: ModelListManager<WatchListItem>
     private let movieService: MovieServiceType
     private let videosService: VideosServiceType
     
-    private var watchListItem: WatchListItem?
+    private(set) var watchListItem: WatchListItem?
     private var watchListItemCancellable: AnyCancellable?
+    
+    let wacthListManager: ModelListManager<WatchListItem>
     
     var youtubeVideoID: String? {
         videos.first { $0.site == "YouTube" }?.key
@@ -33,10 +34,12 @@ import SwiftData
     init(
         movieID: Int,
         modelContext: ModelContext,
+        watchListItem: WatchListItem? = nil,
         movieService: MovieServiceType = MovieService(),
         videosService: VideosServiceType = VideosService()
     ) {
         self.movieID = movieID
+        self.watchListItem = watchListItem
         self.movieService = movieService
         self.videosService = videosService
         
@@ -48,7 +51,7 @@ import SwiftData
         subscribe()
     }
     
-    func toogleAddedTpWatchList() {
+    func toogleAddedToWatchList() {
         if let watchListItem {
             wacthListManager.delete(watchListItem)
         } else {

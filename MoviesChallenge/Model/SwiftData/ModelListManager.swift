@@ -22,7 +22,7 @@ final class ModelListManager<ModelType: PersistentModel> {
         self.modelContext = modelContext
         self.fetchDescriptor = fetchDescriptor
 
-        updateListValue()
+     //   updateListValue()
     }
     
     // MARK: Public Methods

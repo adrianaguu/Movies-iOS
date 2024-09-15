@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Decodable, Hashable, Identifiable {
+struct Movie: Hashable, Identifiable {
     let id: Int
     let adult: Bool
     let backdropPath: String?
@@ -42,3 +42,5 @@ struct Movie: Decodable, Hashable, Identifiable {
         return "\(runtime) minutes"
     }
 }
+
+extension Movie: Decodable { }
