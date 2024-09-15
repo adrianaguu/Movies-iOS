@@ -1,5 +1,5 @@
 //
-//  MovieAPI.swift
+//  MovieTarget.swift
 //  MoviesChallenge
 //
 //  Created by Adriana Gutierrez on 14/09/24.
@@ -8,7 +8,8 @@
 import Moya
 import Foundation
 
-enum MovieAPI {
+enum MovieTarget {
+    case configuration
     case popular
     case nowPlaying
     case upcoming
@@ -16,33 +17,33 @@ enum MovieAPI {
     case movieDetail(id: Int)
 }
 
-extension MovieAPI: TargetType {
+extension MovieTarget: TargetType {
     
     var baseURL: URL {
-        guard let url = URL(string: Constants.MovieAPI.baseURL) else { fatalError() }
-        return url
+        URL(string: Constants.MovieAPI.baseURL)!
     }
     
     var path: String {
         switch self {
+        case .configuration: Constants.MovieAPI.configurationPath
         case .popular: Constants.MovieAPI.popularPath
         case .nowPlaying: Constants.MovieAPI.nowPlayingPath
-        case .topRated: Constants.MovieAPI.topRated
-        case .upcoming: Constants.MovieAPI.upcoming
+        case .topRated: Constants.MovieAPI.topRatedPath
+        case .upcoming: Constants.MovieAPI.upcomingPath
         case .movieDetail(let id): String(id)
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
             return .get
         }
     }
     
     var task: Task {
         switch self {
-        case .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
             return  .requestParameters(parameters: ["api_key": Constants.MovieAPI.key], encoding: URLEncoding.queryString)
         }
     }
@@ -52,11 +53,11 @@ extension MovieAPI: TargetType {
     }
 }
 
-extension MovieAPI: CachePolicyGettable {
+extension MovieTarget: CachePolicyGettable {
     var cachePolicy: URLRequest.CachePolicy {
         switch self {
-        case .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
-            return .reloadIgnoringLocalCacheData
+        case .configuration, .popular, .movieDetail, .nowPlaying, .upcoming, .topRated:
+            return .returnCacheDataElseLoad
         }
     }
 }

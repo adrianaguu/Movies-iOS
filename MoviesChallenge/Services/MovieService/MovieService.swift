@@ -15,10 +15,10 @@ protocol MovieServiceType {
     func fetchNowPlayingList() async throws -> [Movie]
 }
 
-struct MovieService {
-    let networkManager: NetworkManager<MovieAPI>
+struct MovieService: MovieServiceType {
+    let networkManager: NetworkManager<MovieTarget>
     
-    init(networkManager: NetworkManager<MovieAPI> = .init(provider: MoyaProvider<MovieAPI>(plugins: [CachePlugin()]), decoder: .snakeCaseDecoder)) {
+    init(networkManager: NetworkManager<MovieTarget> = .init(provider: MoyaProvider<MovieTarget>(plugins: [CachePlugin()]), decoder: .snakeCaseDecoder)) {
         self.networkManager = networkManager
     }
     
@@ -38,7 +38,7 @@ struct MovieService {
         try await fetch(.nowPlaying)
     }
     
-    private func fetch(_ target: MovieAPI) async throws  -> [Movie] {
+    private func fetch(_ target: MovieTarget) async throws  -> [Movie] {
         let response: MoviePaginationResponse = try await networkManager.request(target: target)
         return response.results
     }

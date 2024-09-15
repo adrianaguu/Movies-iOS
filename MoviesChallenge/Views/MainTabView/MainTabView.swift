@@ -13,10 +13,12 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $viewModel.selection) {
             ForEach(TabItem.allCases) { tab in
-                view(for: tab)
-                    .tabItem {
-                        Label(tab.name, systemImage: tab.systemImage)
-                    }
+                NavigationStack {
+                    view(for: tab)
+                }
+                .tabItem {
+                    Label(tab.name, systemImage: tab.systemImage)
+                }
             }
         }
     }

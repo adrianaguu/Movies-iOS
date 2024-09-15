@@ -28,4 +28,14 @@ struct MoviesChallengeApp: App {
         }
         .modelContainer(sharedModelContainer)
     }
+    
+    init() {
+        Task {
+            do {
+                try await MovieAPIConfigurationSaver().save()
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
 }
