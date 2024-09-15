@@ -23,6 +23,8 @@ enum HomeCategory: CaseIterable, Hashable, Titleable {
     }
     
     var isMain: Bool {
-        self == .popular
+        self == HomeCategory.mainCategory
     }
+    
+    static let mainCategory = HomeCategory.popular
 }

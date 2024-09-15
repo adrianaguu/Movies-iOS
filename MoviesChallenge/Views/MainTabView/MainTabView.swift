@@ -29,7 +29,7 @@ struct MainTabView: View {
         case .home:
             HomeView()
         case .search:
-            EmptyView()
+            SearchView()
         case .watchList:
             EmptyView()
         }
